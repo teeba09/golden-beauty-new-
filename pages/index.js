@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Card from "../components/myCard";
-import Login from "./signIn";
+import Card1 from "../components/myCard1";
 import Cover from "./cover";
-import Link from "next/Link"
-
+import Link from "next/Link";
+import Nav from './nav';
+import Footer from './../components/footer';
 export async function getStaticProps() {
-  const res = await fetch("https://goldenbeauty.herokuapp.com/v1/products");
+  const res = await fetch("https://goldenbeauty.herokuapp.com/v1/products/5");
   const posts = await res.json();
   return { props: { posts } };
 }
@@ -21,25 +22,25 @@ const Home = (props) => {
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    fetch("https://goldenbeauty.herokuapp.com/v1/products")
+    fetch("https://goldenbeauty.herokuapp.com/v1/products/5")
       .then((response) => response.json())
       .then((result) => {
         setTop(result.results);
         setTopLoading(false);
       });
 
-    fetch("https://goldenbeauty.herokuapp.com/v1/products")
+    fetch("https://goldenbeauty.herokuapp.com/v1/products/5")
       .then((response) => response.json())
       .then((result) => {
         setUpcoming(result.results);
         setUpcomingLoading(false);
         setCover({
-          img: `https://goldenbeauty.herokuapp.com/v1/products${result.data[1].image}`,
+          img: `https://goldenbeauty.herokuapp.com/v1/products/5${result.data[1].image}`,
           title: result.data.name,
         });
       });
 
-    fetch("https://goldenbeauty.herokuapp.com/v1/products")
+    fetch("https://goldenbeauty.herokuapp.com/v1/products/5")
       .then((response) => response.json())
       .then((result) => {
         setPopular(result.results);
@@ -48,38 +49,8 @@ const Home = (props) => {
   }, []);
   return (
     <>
-      <Login/>
-
-      {/* <div>
-        <header>
-          <div className="container">
-            <nav>
-              <h1 className="golden">Golden Beauty</h1>
-              <ul className="nav-area">
-                <li>
-                  <a href="#">Home</a>
-                </li>
-                <li>
-                  <div className="dropdown">
-                    <button className="dropbtn">Dropdown</button>
-                    <div className="dropdown-content">
-                      <a href="/[1]">hair</a>
-                      <a href="/[3]">skin care</a>
-                      <a href="/[2]">makeup</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <a href="/signIn">SIGN UP</a>
-                </li>
-                <li>
-                  <a href="/Checkout">CONTACT US</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </header>
-
+      <div>
+        <Nav/>
         <main>
           <Cover
             count={count}
@@ -87,24 +58,18 @@ const Home = (props) => {
             cover={cover}
             setCover={setCover}
             upcoming={upcoming}
-          />  
+          />
           <section className="grid">
             <div className="container">
               <div className="top-rated">
                 <h2>Selling Fast</h2>
                 <div className="cards">
                   {props.posts.data.map((e) => (
-                    <Card
+                    <Card1
                       image={e.image}
                       title={e.name}
                       description={e.description}
-
-                      
-                    />  
-
-
-
-
+                    />
                   ))}
                 </div>
               </div>
@@ -123,7 +88,8 @@ const Home = (props) => {
             </div>
           </section>
         </main>
-      </div> */}
+        <Footer/>
+      </div>
     </>
   );
 };

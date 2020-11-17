@@ -1,9 +1,9 @@
 
 
-const Card = ({ image, name, description }) => {
+const Card1 = ({ image, name, description }) => {
     return (
 
-      <a href="./singleCard">
+      <a href="./singleCard1">
       <div className="card">
     <img src={image} alt="" />
       <h1>{name}</h1>
@@ -12,5 +12,5 @@ const Card = ({ image, name, description }) => {
     );
   };
 
-  export default Card;
+  export default Card1;
 

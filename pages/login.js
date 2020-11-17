@@ -1,11 +1,11 @@
 import { Card, Input, Row, Col, Button, message } from "antd";
 import Nav from './nav'
 import { useState } from "react";
-import {Signup} from "../api"
+import Footer from '../components/footer'
+import {LOgin} from "../api"
 import { useRouter } from 'next/router'
-import Footer from './../components/footer';
 
-const SignUp = () => {
+const Login = () => {
   const router = useRouter()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +16,7 @@ const SignUp = () => {
 
   const handlSubmit = () => {
     setIsLoading(true);
-    Signup({ email, password ,name,phone }, (err, result) => {
+    LOgin({ email, password }, (err, result) => {
       if (err) throw err;
       if (!result.status) {
         Object.keys(result.errMsg).forEach((key) => {
@@ -24,9 +24,9 @@ const SignUp = () => {
         });
         setIsLoading(false);
       } else {
-        localStorage.setItem("blog_token", result.data);
-        // localStorage.setItem("blog_user", JSON.stringify(result.user));
-        router.replace('/login');
+        localStorage.setItem("blog_token", result.token);
+        localStorage.setItem("blog_user", JSON.stringify(result.user));
+        router.replace('/');
         setIsLoading(false);
       }
     });
@@ -34,10 +34,11 @@ const SignUp = () => {
    
 return (
   <div>
-<Nav/>
+    <Nav/>
   <div className="login-page">
-    <Card style={{ width: 400 }}>
-      <Row gutter={[20, 20]}>
+
+    <Card className="loginL" style={{ width: 400 }}>
+      <Row   gutter={[20, 20]}>
         <Col span={24}>
           <Input
             value={email}
@@ -52,35 +53,20 @@ return (
             placeholder="Password"
           />
         </Col>
-        <Col span={24}>
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="name"
-          />
-        </Col>
-        <Col span={24}>
-          <Input
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="phone"
-          />
-        </Col>
-        <Col span={24}>
+        <Col   span={24}>
           <Button
             loading={isLoading}
             onClick={handlSubmit}
-            // type="primary"
-            className=" loginButton"
             block
+            className=" loginButton"
           >
-            SIGN UP
+            Login
           </Button>
         </Col>
         
+        
       </Row>
-      <a href="./login" className=" loginA"> already have an account? </a>
-
+      <a href="./signUp" className=" loginA"> create new account? </a>
     </Card>
   </div>
   <Footer/>
@@ -88,4 +74,4 @@ return (
 );
 };
 
-export default SignUp;
+export default Login;
