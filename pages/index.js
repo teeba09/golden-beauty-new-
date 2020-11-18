@@ -62,7 +62,7 @@ const Home = (props) => {
           <section className="grid">
             <div className="container">
               <div className="top-rated">
-                <h2>Selling Fast</h2>
+                <h2>best sellers</h2>
                 <div className="cards">
                   {props.posts.data.map((e) => (
                     <Card1

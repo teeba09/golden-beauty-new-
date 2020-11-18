@@ -18,7 +18,7 @@ const Checkout = () => {
                 placeholder="Email Address"
               />
               <input type="text" className="input" placeholder="Phone" />
-              <input type="text" className="input" placeholder="Subject" />
+              <input type="text" className="input" placeholder="Address" />
             </div>
             <div className="msg">
               <textarea placeholder="Message"></textarea>
